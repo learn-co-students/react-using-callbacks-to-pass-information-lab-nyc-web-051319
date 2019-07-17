@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import chromeBoi from './data.js'
+import chromeBoi from './data.js';
 import Cell from './Cell.js'
 import ColorSelector from './ColorSelector.js'
 
@@ -7,10 +7,21 @@ export default class Matrix extends Component {
 
   constructor() {
     super()
+
+    this.state = {
+      color: null
+    }
   }
 
+  setColor = (col) => {
+    this.setState({
+      color: col
+    })
+  }
+
+
   genRow = (vals) => (
-    vals.map((val, idx) => <Cell key={idx} color={val} />)
+    vals.map((val, idx) => <Cell key={idx} setColor={this.setColor} color={val} newColor={this.state.color}/>)
   )
 
   genMatrix = () => (
@@ -21,7 +32,7 @@ export default class Matrix extends Component {
   render() {
     return (
       <div id="app">
-        <ColorSelector />
+        <ColorSelector setColor={this.setColor}/>
         <div id="matrix">
           {this.genMatrix()}
         </div>
